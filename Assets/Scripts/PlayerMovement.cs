@@ -15,9 +15,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float lowJumpMultiplier = 2f;
 
     Rigidbody2D rb;
-    bool isJumping = false;
     float moveInput = 0f;
     float groundCheckRadius = 0.2f;
+
+    bool isJumping = false;
 
     void Start()
     {
@@ -48,13 +49,13 @@ public class PlayerMovement : MonoBehaviour
             rb.linearVelocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
         }
 
-
         // Animation
         if (animator != null)
         {
             animator.SetFloat("Speed", Mathf.Abs(moveInput));
             animator.SetBool("IsGrounded", IsGrounded());
         }
+        
     }
 
     void FixedUpdate()
@@ -76,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    bool IsGrounded()
+    public bool IsGrounded()
     {
         return Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
     }
